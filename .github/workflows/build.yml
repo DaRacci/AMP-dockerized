@@ -46,8 +46,16 @@ jobs:
           tags: amp-dockerized:latest
           outputs: type=docker,dest=/tmp/docker-image-${{ matrix.arch }}.tar
       - name: "Upload Docker Image Artifact"
-        if: ${{ inputs.for_deploy == true }}
+        if: ${{ inputs.for_deploy != false }}
         uses: actions/upload-artifact@v2
         with:
           name: image-${{ matrix.arch }}
           path: /tmp/docker-image-${{ matrix.arch }}.tar
+
+  deploy:
+    name: "Deploy"
+    needs: [ build ]
+    uses: DaRacci/AMP-dockerizsed/.github/workflows/deploy-prod.yml@master
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
