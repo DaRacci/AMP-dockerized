@@ -26,7 +26,8 @@ RUN apt-get update && \
     jq \
     sed \
     tzdata \
-    wget && \
+    wget \
+    restic && \
     apt-get -y clean && \
     apt-get -y autoremove --purge && \
     rm -rf \
