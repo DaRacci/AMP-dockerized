@@ -31,7 +31,7 @@ cp /opt/AMPCache* /home/amp/.ampdata/instances/
 echo "Ensuring AMP user exists..."
 if [ ! "$(getent group ${GID})" ]; then
   # Create group
-  addgroup \
+  groupadd \
   --gid ${GID} \
   amp
 fi
