@@ -27,6 +27,7 @@ RUN apt-get update && \
     sed \
     tzdata \
     wget \
+    ansible \
     restic && \
     apt-get -y clean && \
     apt-get -y autoremove --purge && \
