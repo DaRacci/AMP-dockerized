@@ -28,7 +28,8 @@ RUN apt-get update && \
     tzdata \
     wget \
     ansible \
-    restic && \
+    restic \
+    cargo && \
     apt-get -y clean && \
     apt-get -y autoremove --purge && \
     rm -rf \
@@ -164,6 +165,7 @@ RUN if [ "$CACHE_AMP_UPGRADE" = "true" ]; then \
     else echo "Skipping AMP Upgrade Pre-cache."; \
     fi
 
+RUN cargo install server_sync
 
 # Set up environment
 COPY entrypoint /opt/entrypoint
