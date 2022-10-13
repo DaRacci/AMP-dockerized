@@ -165,7 +165,8 @@ RUN if [ "$CACHE_AMP_UPGRADE" = "true" ]; then \
     fi
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     cargo && \
     apt-get -y clean && \
     apt-get -y autoremove --purge &&\
