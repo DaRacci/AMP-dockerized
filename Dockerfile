@@ -28,8 +28,7 @@ RUN apt-get update && \
     tzdata \
     wget \
     ansible \
-    restic \
-    cargo && \
+    restic && \
     apt-get -y clean && \
     apt-get -y autoremove --purge && \
     rm -rf \
@@ -165,7 +164,14 @@ RUN if [ "$CACHE_AMP_UPGRADE" = "true" ]; then \
     else echo "Skipping AMP Upgrade Pre-cache."; \
     fi
 
-RUN cargo install server_sync
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    cargo && \
+    apt-get -y clean && \
+    apt-get -y autoremove --purge &&\
+    cargo install server_sync
+
+ENV PATH="${PATH}:/root/.cargo/bin"
 
 # Set up environment
 COPY entrypoint /opt/entrypoint
